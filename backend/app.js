@@ -4,11 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var index = require('./routes/index');
+var movies = require('./routes/movies');
 
 var app = express();
-var moviesRouter = require('./routes/movies'); // movides.js를 통해 데이터처리
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -19,9 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
+app.use('/',index);
+app.use('/api/movies',movies);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -38,6 +37,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use('/api/movies',moviesRouter); // api/movies로 이동시 movieRouter으로 이동
 
 module.exports = app;
