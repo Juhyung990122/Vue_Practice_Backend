@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+var moviesRouter = require('./routes/movies'); // movides.js를 통해 데이터처리
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -37,5 +37,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use('/api/movies',moviesRouter); // api/movies로 이동시 movieRouter으로 이동
 
 module.exports = app;
